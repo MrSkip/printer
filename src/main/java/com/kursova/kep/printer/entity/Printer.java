@@ -1,8 +1,8 @@
 package com.kursova.kep.printer.entity;
 
 import com.kursova.kep.entity.BaseEntity;
-import com.kursova.kep.specifications.entity.Specifications;
 import com.kursova.kep.firma.entity.Firma;
+import com.kursova.kep.specifications.entity.Specifications;
 
 import javax.persistence.*;
 
@@ -22,9 +22,6 @@ public class Printer extends BaseEntity {
     private String graduationYear;
     private Integer salesInYear;
     private Firma firma;
-
-    @OneToOne
-    @JoinColumn(name = "specifications_id", referencedColumnName = "id")
     private Specifications specifications;
 
     public Printer() {
@@ -133,27 +130,6 @@ public class Printer extends BaseEntity {
         this.salesInYear = salesInYear;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Printer printer = (Printer) o;
-
-        if (id != printer.id) return false;
-        if (name != null ? !name.equals(printer.name) : printer.name != null) return false;
-        if (model != null ? !model.equals(printer.model) : printer.model != null) return false;
-        if (color != null ? !color.equals(printer.color) : printer.color != null) return false;
-        if (price != null ? !price.equals(printer.price) : printer.price != null) return false;
-        if (guaranteeMonth != null ? !guaranteeMonth.equals(printer.guaranteeMonth) : printer.guaranteeMonth != null)
-            return false;
-        if (graduationYear != null ? !graduationYear.equals(printer.graduationYear) : printer.graduationYear != null)
-            return false;
-        if (salesInYear != null ? !salesInYear.equals(printer.salesInYear) : printer.salesInYear != null) return false;
-
-        return true;
-    }
-
     @ManyToOne
     @JoinColumn(name = "firma_id", referencedColumnName = "id", nullable = false)
     public Firma getFirma() {
@@ -164,6 +140,8 @@ public class Printer extends BaseEntity {
         this.firma = firma;
     }
 
+    @OneToOne
+    @JoinColumn(name = "specifications_id", referencedColumnName = "id")
     public Specifications getSpecifications() {
         return specifications;
     }
